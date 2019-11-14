@@ -12,5 +12,5 @@ chmod +x z1.sh
 mcedit z1.sh
 ```
 ```
-`#!/bin/bash`
+#!/bin/bash
 ```
