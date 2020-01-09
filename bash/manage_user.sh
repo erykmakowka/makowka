@@ -1,23 +1,26 @@
 #!/bin/bash
 
+#zmienna globalne
+#ładowanie danych z pliku
+user_list=(`cat users.txt`)
 
-function loadUsers () {
+function loadUsers() {
     echo "loadUsers ..."
+    echo "Lista:"
+    for(( i=0; i<=${#user_list[@]}; i++ ))
+    do
+	echo "	 ${user_list[i]}"
+    done
 }
-
-function loadUsers () {
-    echo "loadUsers ..."
-}
-
-function showUsers () {
-    echo "schowUsers ..."
-}
-
 
 function addUsers () {
     echo "addUsers ..."
+    for user in "${user_list[@] } "
+    do
+	echo "Add user:  ${user}"
+	sudo useradd ${user} -s /sbin/nologin -g "users"
+    done
 }
-
 
 
 function delUsers () {
@@ -40,15 +43,15 @@ function help() {
 cat << EndOfMessage
     Opis opcji skryptu:
     ------------------
-
+    SU -> Listowanie użytkowników z pliku
+    AU -> Dodawanie użytkowników
 EndOfMessage
 }
 
 #menu
-select option in LU SU AU DU ARL DRL HELP QUIT
+select option in SU AU DU ARL DRL HELP QUIT
 do
     case ${option} in
-	"LU") loadUsers ;;
 	"SU") showUsers ;;
 	"AU") addUsers ;;
 	"DU") delUsers ;;
