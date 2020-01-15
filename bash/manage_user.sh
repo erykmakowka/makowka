@@ -4,7 +4,7 @@
 #ładowanie danych z pliku
 user_list=(`cat users.txt`)
 
-function loadUsers() {
+function showUsers() {
     echo "loadUsers ..."
     echo "Lista:"
     for(( i=0; i<=${#user_list[@]}; i++ ))
@@ -15,16 +15,29 @@ function loadUsers() {
 
 function addUsers () {
     echo "addUsers ..."
+    echo -n "Are you sure?  [y/n] "
+    read sure
+    if [ "${sure}" == "y" ]; then
     for user in "${user_list[@] } "
     do
 	echo "Add user:  ${user}"
 	sudo useradd ${user} -s /sbin/nologin -g "users"
-    done
+	done
+    fi
 }
 
 
 function delUsers () {
     echo "delUsers ..."
+    echo -n "Are you sure?  [y/n]"
+    read sure
+    if [ ${sure} == "y" ]; then
+	for user in "${user_list[@] }"
+	do
+	    echo "Remove user ${user} [OK] "
+	    sudo userdel ${user}
+	done
+    fi
 }
 
 
